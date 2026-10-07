@@ -141,14 +141,6 @@ img { display: block; max-width: 100%; }
 
 /* Map embed */
 .location { align-items: start; }
-.map-embed {
-  width: 150px;
-  height: 150px;
-  border: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  justify-self: start;
-}
 
 .map-title {
   font-family: "Fraunces", serif;
@@ -167,12 +159,10 @@ img { display: block; max-width: 100%; }
 
 .location h2 { margin-bottom: .5rem; }
 .location .hours { margin-top: .4rem; }
-.map-embed { width: 110px; height: 110px; }
 .map-title { font-size: 1rem; margin-bottom: .5rem; }
 
 .location { padding-top: 1rem; padding-bottom: 1rem; gap: 1.5rem; }
 .location h2 { margin-bottom: .3rem; }
-.map-embed { width: 80px; height: 80px; }
 
 /* Full-screen sections + scroll snap */
 html { scroll-snap-type: y mandatory; }
@@ -196,7 +186,6 @@ html { scroll-snap-type: y mandatory; }
 .order-inline h3 { font-family: "Fraunces", serif; font-size: 1.4rem; margin-bottom: 1rem; }
 
 #lokasi { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-.map-embed { width: 60px; height: 60px; }
 
 .nav-links a { background: var(--accent); color: var(--bg-dark); padding: .5rem 1.1rem; border-radius: 999px; }
 .nav-links a:not(.btn):hover { color: var(--bg-dark); opacity: .85; }
@@ -250,4 +239,48 @@ html { scroll-snap-type: none; }
     padding: 0.9rem 0.5rem;
     font-size: 0.85rem;
   }
+}
+
+/* Mobile: menu filters tetap satu baris */
+@media (max-width: 600px) {
+  .tabs {
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0.45rem 0.3rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+
+/* Google Maps logo */
+.map-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.map-logo {
+  display: block;
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.map-link:hover .map-logo {
+  opacity: 0.8;
+}
+
+.map-link:focus-visible {
+  outline: 2px solid var(--text-dark);
+  outline-offset: 5px;
 }
