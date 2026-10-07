@@ -229,3 +229,25 @@ html { scroll-snap-type: none; }
   .hero { align-items: flex-start; }
   .hero-card { margin-top: 7rem; }
 }
+
+/* Mobile: tombol hero sejajar */
+@media (max-width: 600px) {
+  .hero-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.7rem;
+  }
+
+  .hero-actions .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.9rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
