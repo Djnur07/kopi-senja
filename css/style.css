@@ -284,3 +284,94 @@ html { scroll-snap-type: none; }
   outline: 2px solid var(--text-dark);
   outline-offset: 5px;
 }
+
+
+/* HP & tablet: lokasi di bawah hero */
+@media (max-width: 900px) {
+  .hero {
+    position: relative;
+  }
+
+  .hero-card .hero-sub {
+    display: none;
+  }
+
+  .hero-location {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 140px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    color: var(--cream);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .hero-location span {
+    display: block;
+  }
+}
+
+/* Desktop: elemen lokasi mobile disembunyikan */
+@media (min-width: 901px) {
+  .hero-location {
+    display: none;
+  }
+}
+
+/* Mobile: turunkan hero card sedikit */
+@media (max-width: 600px) {
+  .hero-card {
+    transform: translateY(30px);
+  }
+}
+
+/* iPad: semua ukuran dan orientasi */
+@media only screen
+  and (min-width: 768px)
+  and (max-width: 1366px)
+  and (pointer: coarse) {
+
+  .hero {
+    position: relative;
+  }
+
+  .hero-card .hero-sub {
+    display: none;
+  }
+
+  .hero-location {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 140px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    color: var(--cream);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .hero-location span {
+    display: block;
+  }
+}
+
+/* HP: beri ruang lebih pada teks tombol hero */
+@media (max-width: 600px) {
+  .hero-actions .btn {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    font-size: 0.78rem;
+    letter-spacing: -0.01em;
+  }
+}
