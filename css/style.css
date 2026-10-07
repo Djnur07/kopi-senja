@@ -211,3 +211,9 @@ html { scroll-snap-type: none; }
 .gallery-sub { font-family: "Fraunces", serif; font-style: italic; font-size: 1.25rem; color: #6b5744; }
 
 .nav-links a { font-family: "Fraunces", serif; font-weight: 600; }
+
+@media (max-width: 760px) {
+  #lokasi { text-align: center; }
+  #lokasi .hours { margin-left: auto; margin-right: auto; }
+  #lokasi .map-wrap { justify-self: center; text-align: center; }
+}
