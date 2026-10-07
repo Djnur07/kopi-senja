@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kopi Senja — Temukan Tenang di Setiap Tegukan</title>
+<meta name="description" content="Kopi Senja, Jl. Cihampelas No. 88, Bandung. Buka setiap hari 08.00–22.00 WIB.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20">
+</head>
+<body>
+
+<header class="nav">
+  <a href="#" class="logo">
+    <img src="assets/img/logo.png" alt="Kopi Senja">
+    <span>Kopi Senja</span>
+  </a>
+  <button class="nav-toggle" aria-label="Open menu">&#9776;</button>
+  <nav class="nav-links">
+    <a href="#menu">Menu</a>
+    <a href="#galeri">Galeri</a>
+    <a href="#lokasi">Lokasi</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster="assets/img/storefront.jpg">
+    <source src="assets/video/hero-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-card">
+    <p class="eyebrow">Premium Coffee Experience</p>
+    <h1>Temukan Tenang di Setiap Tegukan</h1>
+    <p class="hero-sub">Jl. Cihampelas No. 88, Bandung &middot; Setiap hari 08.00&ndash;22.00 WIB</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn">Lihat Menu</a>
+      <a href="https://wa.me/6281234567890?text=Halo%20Kopi%20Senja%2C%20saya%20ingin%20pesan." target="_blank" rel="noopener" class="btn btn-outline">Pesan via WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="section">
+  <h2>Menu Kami</h2>
+  <div class="tabs">
+    <button class="tab active" data-filter="semua">Semua</button>
+    <button class="tab" data-filter="kopi">Kopi</button>
+    <button class="tab" data-filter="nonkopi">Non-Kopi</button>
+    <button class="tab" data-filter="makanan">Makanan</button>
+  </div>
+  <div class="menu-grid" id="menu-grid"></div>
+
+  <div id="pesan" class="order-inline">
+    <h3>Pesanan Anda</h3>
+    <div class="cart" id="cart">
+      <p class="empty">Belum ada pesanan. Pilih menu di atas.</p>
+    </div>
+    <div class="cart-footer">
+      <span>Total: <strong id="cart-total">Rp0</strong></span>
+      <button class="btn" id="checkout">Pesan via WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<section id="galeri" class="section gallery">
+  <h2>Galeri</h2>
+  <p class="gallery-sub">Sudut-sudut hangat, aroma yang menenangkan, dan senyum di balik meja bar — begini rasanya singgah di Kopi Senja.</p>
+  <div class="gallery-grid">
+    <img src="assets/img/interior.jpg" alt="Interior Kopi Senja">
+    <img src="assets/img/bar-counter.jpg" alt="Bar counter Kopi Senja">
+    <img src="assets/img/latte.jpg" alt="Latte Kopi Senja">
+    <img src="assets/img/seating.jpg" alt="Area duduk Kopi Senja">
+    <img src="assets/img/croissant.jpg" alt="Croissant Kopi Senja">
+    <img src="assets/img/iced-coffee.jpg" alt="Iced coffee Kopi Senja">
+  </div>
+  <p class="gallery-note">— Datang untuk kopinya, betah karena suasananya. —</p>
+</section>
+
+<section id="lokasi" class="section location">
+  <div>
+    <h2>Lokasi &amp; Jam Buka</h2>
+    <p>Jl. Cihampelas No. 88, Bandung, Jawa Barat</p>
+    <table class="hours">
+      <tr><td>Setiap hari</td><td>08.00 &ndash; 22.00 WIB</td></tr>
+    </table>
+  </div>
+  <div class="map-wrap">
+        <h3 class="map-title">Temukan Kami</h3>
+        <iframe class="map-embed" src="https://www.google.com/maps?q=-6.893635,107.604110&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi Kopi Senja"></iframe>
+      </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Kopi Senja &middot; Instagram @kopisenja</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
