@@ -1039,3 +1039,85 @@ body.modal-open {
     font-size: 17px;
   }
 }
+
+/* ===== CLICKABLE MENU IMAGE FIX ===== */
+
+.menu-clickable {
+  cursor: pointer;
+}
+
+.menu-clickable:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Background video untuk section */
+.has-video { position: relative; overflow: hidden; }
+.section-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.section-bg-overlay { position: absolute; inset: 0; z-index: 1; background: rgba(246, 239, 230, 0.8); }
+.has-video > *:not(.section-bg):not(.section-bg-overlay) { position: relative; z-index: 2; }
+
+/* Samakan overlay Menu & Galeri dengan gradient Home + teks cream */
+.section-bg-overlay {
+  background:
+    radial-gradient(circle at 70% 30%, rgba(200,116,58,.25), transparent 60%),
+    linear-gradient(135deg, rgba(27,18,13,.80) 0%, rgba(58,36,20,.64) 60%, rgba(27,18,13,.88) 100%);
+}
+.has-video h2 { color: var(--cream); }
+#galeri .gallery-sub, #galeri .gallery-note { color: rgba(243,223,193,.85); }
+#menu .tab { color: var(--cream); border-color: rgba(243,223,193,.5); }
+#menu .tab.active { background: var(--cream); color: var(--bg-dark); }
+#menu .order-inline h3 { color: var(--cream); }
+#menu .cart-footer { color: var(--cream); }
+
+/* Buat tepi section menyatu agar batas tidak terlihat terpotong */
+.section-bg-overlay {
+  background:
+    linear-gradient(to bottom, rgba(27,18,13,1) 0%, rgba(27,18,13,0) 14%, rgba(27,18,13,0) 86%, rgba(27,18,13,1) 100%),
+    radial-gradient(circle at 70% 30%, rgba(200,116,58,.22), transparent 60%),
+    linear-gradient(135deg, rgba(27,18,13,.72) 0%, rgba(58,36,20,.58) 60%, rgba(27,18,13,.82) 100%);
+}
+
+/* Gelapkan tepi bawah hero agar menyatu dengan Menu */
+.hero-overlay {
+  background:
+    linear-gradient(to bottom, rgba(27,18,13,0) 80%, rgba(27,18,13,1) 100%),
+    radial-gradient(circle at 70% 30%, rgba(200,116,58,.25), transparent 60%),
+    linear-gradient(135deg, rgba(27,18,13,.75) 0%, rgba(58,36,20,.6) 60%, rgba(27,18,13,.85) 100%);
+}
+
+/* Navbar disamakan dengan background cream (seperti Lokasi) */
+.nav { background: #faf0e3; color: var(--text-dark); border-bottom: 1px solid #e7ddcb; }
+.nav .logo, .nav .logo span { color: var(--text-dark); }
+.nav-toggle { color: var(--text-dark); }
+
+/* Perkecil tinggi navbar */
+.nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.nav .logo img { width: 28px; height: 28px; }
+.nav-links a { padding-top: .4rem; padding-bottom: .4rem; }
+
+/* Padatkan & perkecil teks section Lokasi */
+#lokasi { padding-top: 1rem; padding-bottom: 1rem; }
+#lokasi h2 { font-size: 1.5rem; margin-bottom: .3rem; }
+#lokasi p { font-size: .9rem; }
+#lokasi .hours { font-size: .9rem; margin-top: .3rem; }
+#lokasi .hours td { padding: .2rem 1.2rem .2rem 0; }
+#lokasi .map-title { font-size: .9rem; }
+
+/* Frame cream pada foto galeri */
+.gallery-grid img {
+  border: 6px solid #f3dfc1;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .28);
+  background: #f3dfc1;
+}
+
+/* Menu 2 kolom & lebih kecil khusus HP */
+@media (max-width: 760px) {
+  #menu .menu-grid { grid-template-columns: 1fr 1fr; gap: .7rem; }
+  #menu .card { padding: .7rem; }
+  #menu .card-img { height: 100px; }
+  #menu .card h3 { font-size: .9rem; }
+  #menu .card .price { font-size: .85rem; }
+  #menu .card-bottom { flex-direction: column; align-items: stretch; gap: .4rem; }
+  #menu .card .add { width: 100%; text-align: center; padding: .4rem; font-size: .8rem; }
+}
