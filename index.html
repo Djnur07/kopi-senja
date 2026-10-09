@@ -7,7 +7,7 @@
 <meta name="description" content="Kopi Senja, Jl. Cihampelas No. 88, Bandung. Buka setiap hari 08.00–22.00 WIB.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=24">
+<link rel="stylesheet" href="css/style.css?v=36">
 <link rel="icon" type="image/png" href="assets/img/logo.png?v=1">
 </head>
 <body>
@@ -45,7 +45,9 @@
 </div>
 </section>
 
-<section id="menu" class="section">
+<section id="menu" class="section has-video">
+  <video class="section-bg" autoplay muted loop playsinline><source src="assets/video/menu-bg.mp4" type="video/mp4"></video>
+  <div class="section-bg-overlay"></div>
   <h2>Menu Kami</h2>
   <div class="tabs">
     <button class="tab active" data-filter="semua">Semua</button>
@@ -60,14 +62,18 @@
     <div class="cart" id="cart">
       <p class="empty">Belum ada pesanan. Pilih menu di atas.</p>
     </div>
-    <div class="cart-footer">
+    <div class="cart-total-row">
       <span>Total: <strong id="cart-total">Rp0</strong></span>
+    </div>
+    <div class="cart-footer">
       <button class="btn" id="checkout">Pesan via WhatsApp</button>
     </div>
   </div>
 </section>
 
-<section id="galeri" class="section gallery">
+<section id="galeri" class="section gallery has-video">
+  <video class="section-bg" autoplay muted loop playsinline><source src="assets/video/galeri-bg.mp4" type="video/mp4"></video>
+  <div class="section-bg-overlay"></div>
   <h2>Galeri</h2>
   <p class="gallery-sub">Sudut-sudut hangat, aroma yang menenangkan, dan senyum di balik meja bar — begini rasanya singgah di Kopi Senja.</p>
   <div class="gallery-grid">

@@ -1121,3 +1121,20 @@ body.modal-open {
   #menu .card-bottom { flex-direction: column; align-items: stretch; gap: .4rem; }
   #menu .card .add { width: 100%; text-align: center; padding: .4rem; font-size: .8rem; }
 }
+
+/* Hanya Total yang masuk kotak putih; tombol di luar */
+.cart { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+#menu .cart-total-row {
+  background: #fff;
+  color: var(--text-dark);
+  padding: .9rem 1.4rem 1.1rem;
+  border-top: 1px solid #eee;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  font-size: 1.1rem;
+}
+#menu .cart-footer {
+  background: transparent;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}
