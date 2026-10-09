@@ -1,15 +1,15 @@
 // ====== DATA MENU ======
 const menu = [
-  { id: 1,  nama: "Espresso",            kategori: "kopi",    harga: 18000, gambar: "assets/img/menu/espresso.jpg" },
-  { id: 2,  nama: "Americano",           kategori: "kopi",    harga: 20000, gambar: "assets/img/menu/americano.jpg" },
-  { id: 3,  nama: "Café Latte",          kategori: "kopi",    harga: 25000, gambar: "assets/img/menu/cafe-latte.jpg" },
-  { id: 4,  nama: "Cappuccino",          kategori: "kopi",    harga: 25000, gambar: "assets/img/menu/cappuccino.jpg" },
-  { id: 5,  nama: "Caramel Macchiato",   kategori: "kopi",    harga: 28000, gambar: "assets/img/menu/caramel-macchiato.jpg" },
-  { id: 6,  nama: "Kopi Susu Gula Aren", kategori: "kopi",    harga: 22000, gambar: "assets/img/menu/kopi-susu-gula-aren.jpg" },
-  { id: 7,  nama: "Matcha Latte",        kategori: "nonkopi", harga: 25000, gambar: "assets/img/menu/matcha-latte.jpg" },
-  { id: 8,  nama: "Chocolate",           kategori: "nonkopi", harga: 24000, gambar: "assets/img/menu/chocolate.jpg" },
-  { id: 9,  nama: "Croissant",           kategori: "makanan", harga: 20000, gambar: "assets/img/menu/croissant.jpg" },
-  { id: 10, nama: "Chicken Sandwich",    kategori: "makanan", harga: 28000, gambar: "assets/img/menu/chicken-sandwich.jpg" },
+  { id: 1,  nama: "Espresso",            kategori: "kopi",    harga: 18000, gambar: "assets/img/menu/espresso.jpg", deskripsi: "Espresso pekat dengan cita rasa kuat dan crema lembut." },
+  { id: 2,  nama: "Americano",           kategori: "kopi",    harga: 20000, gambar: "assets/img/menu/americano.jpg", deskripsi: "Espresso klasik dengan air, ringan namun tetap kaya rasa." },
+  { id: 3,  nama: "Café Latte",          kategori: "kopi",    harga: 25000, gambar: "assets/img/menu/cafe-latte.jpg", deskripsi: "Espresso lembut berpadu dengan susu creamy dan halus." },
+  { id: 4,  nama: "Cappuccino",          kategori: "kopi",    harga: 25000, gambar: "assets/img/menu/cappuccino.jpg", deskripsi: "Perpaduan espresso, susu, dan foam lembut yang seimbang." },
+  { id: 5,  nama: "Caramel Macchiato",   kategori: "kopi",    harga: 28000, gambar: "assets/img/menu/caramel-macchiato.jpg", deskripsi: "Espresso creamy dengan susu lembut dan sentuhan karamel manis." },
+  { id: 6,  nama: "Kopi Susu Gula Aren", kategori: "kopi",    harga: 22000, gambar: "assets/img/menu/kopi-susu-gula-aren.jpg", deskripsi: "Kopi susu creamy dengan manis alami dan aroma khas gula aren." },
+  { id: 7,  nama: "Matcha Latte",        kategori: "nonkopi", harga: 25000, gambar: "assets/img/menu/matcha-latte.jpg", deskripsi: "Matcha pilihan dengan susu creamy dan rasa earthy yang lembut." },
+  { id: 8,  nama: "Chocolate",           kategori: "nonkopi", harga: 24000, gambar: "assets/img/menu/chocolate.jpg", deskripsi: "Cokelat hangat yang creamy, manis, dan kaya rasa." },
+  { id: 9,  nama: "Croissant",           kategori: "makanan", harga: 20000, gambar: "assets/img/menu/croissant.jpg", deskripsi: "Croissant renyah berlapis dengan tekstur buttery yang lembut." },
+  { id: 10, nama: "Chicken Sandwich",    kategori: "makanan", harga: 28000, gambar: "assets/img/menu/chicken-sandwich.jpg", deskripsi: "Roti panggang dengan ayam gurih, sayuran segar, keju, dan saus creamy." },
 ];
 
 const NOMOR_WA = "6281234567890";
@@ -20,11 +20,159 @@ const cartEl = document.getElementById("cart");
 const totalEl = document.getElementById("cart-total");
 const cart = {};
 
+
+// ====== MENU DETAIL MODAL ======
+const menuModal = document.getElementById("menu-modal");
+const modalImage = document.getElementById("modal-menu-image");
+const modalName = document.getElementById("modal-menu-name");
+const modalCategory = document.getElementById("modal-menu-category");
+const modalDescription = document.getElementById("modal-menu-description");
+const modalPrice = document.getElementById("modal-menu-price");
+const modalClose = document.getElementById("menu-modal-close");
+let activeMenuId = null;
+const modalMinus = document.getElementById("modal-minus");
+const modalPlus = document.getElementById("modal-plus");
+const modalQty = document.getElementById("modal-qty");
+
+function updateModalQty() {
+  if (!activeMenuId || !modalQty) return;
+
+  const item = menu.find((m) => m.id == activeMenuId);
+  const quantity = cart[activeMenuId] || 0;
+
+  modalQty.textContent = quantity;
+
+  const modalTotal = document.getElementById("modal-menu-total");
+
+  if (modalTotal && item) {
+    modalTotal.textContent = `Total: ${rupiah(item.harga * quantity)}`;
+  }
+}
+
+if (modalPlus) {
+  modalPlus.addEventListener("click", () => {
+    if (!activeMenuId) return;
+
+    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
+
+    updateModalQty();
+    renderCart();
+  });
+}
+
+if (modalMinus) {
+  modalMinus.addEventListener("click", () => {
+    if (!activeMenuId) return;
+
+    if (cart[activeMenuId]) {
+      cart[activeMenuId]--;
+
+      if (cart[activeMenuId] <= 0) {
+        delete cart[activeMenuId];
+      }
+    }
+
+    updateModalQty();
+    renderCart();
+  });
+}
+
+if (modalPlus) {
+  modalPlus.addEventListener("click", () => {
+    if (!activeMenuId) return;
+
+    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
+
+    updateModalQty();
+    renderCart();
+  });
+}
+
+if (modalMinus) {
+  modalMinus.addEventListener("click", () => {
+    if (!activeMenuId) return;
+
+    if (cart[activeMenuId]) {
+      cart[activeMenuId]--;
+
+      if (cart[activeMenuId] <= 0) {
+        delete cart[activeMenuId];
+      }
+    }
+
+    updateModalQty();
+    renderCart();
+  });
+}
+
+
+function openMenuModal(id) {
+  const item = menu.find((m) => m.id == id);
+  if (!item) return;
+
+  activeMenuId = item.id;
+
+  modalImage.src = item.gambar;
+  modalImage.alt = item.nama;
+  modalName.textContent = item.nama;
+  modalCategory.textContent =
+    item.kategori === "kopi" ? "Kopi" :
+    item.kategori === "nonkopi" ? "Non-Kopi" :
+    "Makanan";
+  modalDescription.textContent = item.deskripsi || "";
+  modalPrice.textContent = rupiah(item.harga);
+
+  menuModal.classList.add("show");
+  menuModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+
+  setTimeout(() => modalClose.focus(), 50);
+}
+
+function closeMenuModal() {
+  menuModal.classList.remove("show");
+  menuModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  activeMenuId = null;
+}
+
+grid.addEventListener("click", (e) => {
+  const image = e.target.closest(".menu-clickable");
+
+  if (image) {
+    e.stopPropagation();
+    openMenuModal(image.dataset.menuId);
+  }
+});
+
+grid.addEventListener("keydown", (e) => {
+  const image = e.target.closest(".menu-clickable");
+
+  if (image && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    openMenuModal(image.dataset.menuId);
+  }
+});
+
+modalClose.addEventListener("click", closeMenuModal);
+
+menuModal.addEventListener("click", (e) => {
+  if (e.target.hasAttribute("data-close-modal")) {
+    closeMenuModal();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && menuModal.classList.contains("show")) {
+    closeMenuModal();
+  }
+});
+
 function renderMenu(filter = "semua") {
   const items = filter === "semua" ? menu : menu.filter((m) => m.kategori === filter);
   grid.innerHTML = items.map((m) => `
     <article class="card">
-      <img class="card-img" src="${m.gambar}" alt="${m.nama}" loading="lazy">
+      <img class="card-img menu-clickable" src="${m.gambar}" alt="${m.nama}" loading="lazy" data-menu-id="${m.id}" tabindex="0" role="button" aria-label="Lihat detail ${m.nama}">
       <h3>${m.nama}</h3>
       <div class="card-bottom">
         <span class="price">${rupiah(m.harga)}</span>

@@ -107,6 +107,38 @@
   <p>&copy; <span id="year"></span> Kopi Senja &middot; Instagram @kopisenja</p>
 </footer>
 
+
+<!-- ===== MENU DETAIL MODAL ===== -->
+<div class="menu-modal" id="menu-modal" aria-hidden="true">
+  <div class="menu-modal-backdrop" data-close-modal></div>
+
+  <div class="menu-modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-menu-name">
+    <button class="menu-modal-close" id="menu-modal-close" aria-label="Tutup">&times;</button>
+
+    <div class="menu-modal-image-wrap">
+      <img id="modal-menu-image" src="" alt="">
+    </div>
+
+    <div class="menu-modal-info">
+      <p class="menu-modal-category" id="modal-menu-category"></p>
+      <h2 id="modal-menu-name"></h2>
+      <p class="menu-modal-description" id="modal-menu-description"></p>
+
+      <div class="menu-modal-bottom">
+        <div class="modal-price-group">
+          <span class="menu-modal-price" id="modal-menu-price"></span>
+          <span class="menu-modal-total" id="modal-menu-total">Total: Rp0</span>
+        </div>
+        <div class="modal-quantity" aria-label="Order quantity">
+  <button type="button" id="modal-minus" aria-label="Decrease quantity">−</button>
+  <span id="modal-qty">0</span>
+  <button type="button" id="modal-plus" aria-label="Increase quantity">+</button>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="js/script.js"></script>
 </body>
 </html>
