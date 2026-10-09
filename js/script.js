@@ -28,105 +28,64 @@ const modalName = document.getElementById("modal-menu-name");
 const modalCategory = document.getElementById("modal-menu-category");
 const modalDescription = document.getElementById("modal-menu-description");
 const modalPrice = document.getElementById("modal-menu-price");
+const modalTotal = document.getElementById("modal-menu-total");
 const modalClose = document.getElementById("menu-modal-close");
-let activeMenuId = null;
+const modalAdd = document.getElementById("modal-menu-add");
 const modalMinus = document.getElementById("modal-minus");
 const modalPlus = document.getElementById("modal-plus");
 const modalQty = document.getElementById("modal-qty");
 
-function updateModalQty() {
-  if (!activeMenuId || !modalQty) return;
+let activeMenuId = null;
 
-  const item = menu.find((m) => m.id == activeMenuId);
+/*
+ * IMPORTANT:
+ * The modal quantity belongs ONLY to the menu currently being viewed.
+ * The cart remains the global order list.
+ */
+function updateModalQuantity() {
+  if (!activeMenuId) return;
+
+  const item = menu.find((m) => m.id === activeMenuId);
+  if (!item) return;
+
   const quantity = cart[activeMenuId] || 0;
+  const itemTotal = item.harga * quantity;
 
-  modalQty.textContent = quantity;
+  if (modalQty) {
+    modalQty.textContent = quantity;
+  }
 
-  const modalTotal = document.getElementById("modal-menu-total");
-
-  if (modalTotal && item) {
-    modalTotal.textContent = `Total: ${rupiah(item.harga * quantity)}`;
+  if (modalTotal) {
+    modalTotal.textContent = `Total: ${rupiah(itemTotal)}`;
   }
 }
 
-if (modalPlus) {
-  modalPlus.addEventListener("click", () => {
-    if (!activeMenuId) return;
-
-    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
-
-    updateModalQty();
-    renderCart();
-  });
-}
-
-if (modalMinus) {
-  modalMinus.addEventListener("click", () => {
-    if (!activeMenuId) return;
-
-    if (cart[activeMenuId]) {
-      cart[activeMenuId]--;
-
-      if (cart[activeMenuId] <= 0) {
-        delete cart[activeMenuId];
-      }
-    }
-
-    updateModalQty();
-    renderCart();
-  });
-}
-
-if (modalPlus) {
-  modalPlus.addEventListener("click", () => {
-    if (!activeMenuId) return;
-
-    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
-
-    updateModalQty();
-    renderCart();
-  });
-}
-
-if (modalMinus) {
-  modalMinus.addEventListener("click", () => {
-    if (!activeMenuId) return;
-
-    if (cart[activeMenuId]) {
-      cart[activeMenuId]--;
-
-      if (cart[activeMenuId] <= 0) {
-        delete cart[activeMenuId];
-      }
-    }
-
-    updateModalQty();
-    renderCart();
-  });
-}
-
-
 function openMenuModal(id) {
-  const item = menu.find((m) => m.id == id);
+  const item = menu.find((m) => m.id === Number(id));
   if (!item) return;
 
+  // This is the critical part:
+  // every time a different menu opens, activeMenuId changes.
   activeMenuId = item.id;
 
   modalImage.src = item.gambar;
   modalImage.alt = item.nama;
   modalName.textContent = item.nama;
   modalCategory.textContent =
-    item.kategori === "kopi" ? "Kopi" :
-    item.kategori === "nonkopi" ? "Non-Kopi" :
-    "Makanan";
+    item.kategori === "kopi"
+      ? "KOPI"
+      : item.kategori === "nonkopi"
+      ? "NON-KOPI"
+      : "MAKANAN";
   modalDescription.textContent = item.deskripsi || "";
   modalPrice.textContent = rupiah(item.harga);
+
+  // Always recalculate from THIS menu's cart quantity.
+  updateModalQuantity();
 
   menuModal.classList.add("show");
   menuModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
-
-  setTimeout(() => modalClose.focus(), 50);
 }
 
 function closeMenuModal() {
@@ -136,31 +95,58 @@ function closeMenuModal() {
   activeMenuId = null;
 }
 
-grid.addEventListener("click", (e) => {
-  const image = e.target.closest(".menu-clickable");
+if (modalPlus) {
+  modalPlus.addEventListener("click", () => {
+    if (!activeMenuId) return;
 
-  if (image) {
-    e.stopPropagation();
-    openMenuModal(image.dataset.menuId);
-  }
-});
+    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
 
-grid.addEventListener("keydown", (e) => {
-  const image = e.target.closest(".menu-clickable");
+    // Update both modal and Pesanan Anda.
+    updateModalQuantity();
+    renderCart();
+  });
+}
 
-  if (image && (e.key === "Enter" || e.key === " ")) {
-    e.preventDefault();
-    openMenuModal(image.dataset.menuId);
-  }
-});
+if (modalMinus) {
+  modalMinus.addEventListener("click", () => {
+    if (!activeMenuId) return;
 
-modalClose.addEventListener("click", closeMenuModal);
+    const current = cart[activeMenuId] || 0;
 
-menuModal.addEventListener("click", (e) => {
-  if (e.target.hasAttribute("data-close-modal")) {
-    closeMenuModal();
-  }
-});
+    if (current <= 1) {
+      delete cart[activeMenuId];
+    } else {
+      cart[activeMenuId] = current - 1;
+    }
+
+    // Update both modal and Pesanan Anda.
+    updateModalQuantity();
+    renderCart();
+  });
+}
+
+if (modalAdd) {
+  modalAdd.addEventListener("click", () => {
+    if (!activeMenuId) return;
+
+    cart[activeMenuId] = (cart[activeMenuId] || 0) + 1;
+
+    updateModalQuantity();
+    renderCart();
+  });
+}
+
+if (modalClose) {
+  modalClose.addEventListener("click", closeMenuModal);
+}
+
+if (menuModal) {
+  menuModal.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close-modal]")) {
+      closeMenuModal();
+    }
+  });
+}
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && menuModal.classList.contains("show")) {
@@ -168,11 +154,35 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+grid.addEventListener("click", (e) => {
+  const image = e.target.closest(".menu-clickable");
+
+  if (!image) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  openMenuModal(image.dataset.menuId);
+});
+
+grid.addEventListener("keydown", (e) => {
+  const image = e.target.closest(".menu-clickable");
+
+  if (!image) return;
+
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    e.stopPropagation();
+
+    openMenuModal(image.dataset.menuId);
+  }
+});
+
 function renderMenu(filter = "semua") {
   const items = filter === "semua" ? menu : menu.filter((m) => m.kategori === filter);
   grid.innerHTML = items.map((m) => `
     <article class="card">
-      <img class="card-img menu-clickable" src="${m.gambar}" alt="${m.nama}" loading="lazy" data-menu-id="${m.id}" tabindex="0" role="button" aria-label="Lihat detail ${m.nama}">
+      <img class="card-img menu-clickable" src="${m.gambar}" alt="${m.nama}" loading="lazy" data-menu-id="${m.id}" tabindex="0" role="button" aria-label="Lihat detail ${m.nama}" onclick="openMenuModal(${m.id})">
       <h3>${m.nama}</h3>
       <div class="card-bottom">
         <span class="price">${rupiah(m.harga)}</span>
