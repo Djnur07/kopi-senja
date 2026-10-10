@@ -258,3 +258,50 @@ document.querySelectorAll(".nav-links a").forEach((a) =>
 
 document.getElementById("year").textContent = new Date().getFullYear();
 renderMenu();
+
+/* Lazy-load video background Menu & Galeri (hemat loading awal) */
+(function () {
+  const vids = document.querySelectorAll("video.section-bg");
+  const activate = (v) => {
+    const s = v.querySelector("source");
+    if (s && s.dataset.src && !s.src) { s.src = s.dataset.src; v.load(); }
+    v.play().catch(() => {});
+  };
+  if (!("IntersectionObserver" in window)) { vids.forEach(activate); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) activate(e.target); else e.target.pause(); });
+  }, { rootMargin: "200px" });
+  vids.forEach((v) => io.observe(v));
+})();
+
+/* Scroll progress bar + reveal + parallax hero */
+(function () {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const bar = document.getElementById("scroll-progress");
+  const heroVideo = document.querySelector(".hero-video");
+
+  function onScroll() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    if (bar) bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+    if (heroVideo && !reduce && h.scrollTop < h.clientHeight) {
+      heroVideo.style.transform = "translateY(" + (h.scrollTop * 0.08) + "px)";
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  if (!reduce && "IntersectionObserver" in window) {
+    const targets = document.querySelectorAll(".section h2, .gallery-sub, .gallery-note, .menu-grid, #galeri .gallery-grid img, #lokasi p, #lokasi .hours, #lokasi .map-wrap");
+    targets.forEach((el, i) => {
+      el.classList.add("reveal");
+      el.style.transitionDelay = ((i % 6) * 0.06) + "s";
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    targets.forEach((el) => io.observe(el));
+  }
+})();

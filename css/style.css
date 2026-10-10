@@ -1138,3 +1138,18 @@ body.modal-open {
   margin-top: 1rem;
   justify-content: flex-end;
 }
+
+/* Progress bar scroll */
+#scroll-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 2000; transition: width .1s linear; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* Parallax hero (oversize agar tak muncul celah) */
+.hero-video { height: 120%; top: -10%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .hero-video { height: 100%; top: 0; }
+}
